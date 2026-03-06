@@ -13,6 +13,7 @@ class Card
     public int cardCount;
 
     public int limitCount = 0;
+    public int previewCount = 0;
 
     // 행렬 받기
     int column = 4;
@@ -26,23 +27,27 @@ class Card
                 column = 2;
                 row = 4;
                 limitCount = 10;
+                previewCount = 5;
                 break;
 
             case "2":
                 column = 4;
                 row = 4;
                 limitCount = 20;
+                previewCount = 3;
                 break;
 
             case "3":
                 column = 4;
                 row = 6;
                 limitCount = 30;
+                previewCount = 2;
                 break;
 
 
         }
-        
+
+
         Console.WriteLine("카드를 섞는 중. . .\n");
 
         // 행렬 받을 시 곱하고 2나눠서 갯수 설정
@@ -63,12 +68,13 @@ class Card
                     if (cardShuffle[k,l] == null)
                     {
                         isCard = true;
-                        cardShuffle[k, l] = $" [{i}]";
+                        cardShuffle[k, l] = $"{i}";
                     }
                 }
             }
         }
 
+        Preview(num, previewCount);
 
 
 
@@ -96,17 +102,28 @@ class Card
 
         string firstCard = null;
         string secondCard = null;
-
+        
+        // 첫번째 카드 선택
         while (true)
         {
-            // 첫번째 카드 선택
             Console.Write("첫 번째 카드를 선택하세요 (행 열): ");
             string[] selectCard1 = new string[2];
             selectCard1 = Console.ReadLine().Split(" ");
 
+            // 잘못받으면 재실행
+            if (selectCard1.Length < 2 || !int.TryParse(selectCard1[0], out int card1) || !int.TryParse(selectCard1[1], out int card2))
+            {
+                Console.WriteLine("잘못된 입력입니다. 숫자 두 개를 띄워쓰기로 구분해 입력해 주세요.");
+                continue;
+            }
+
+
             // 인덱스로 쓸거니까 -1 하기
-            c1 = int.Parse(selectCard1[0]) - 1;
-            r1 = int.Parse(selectCard1[1]) - 1;
+            c1 = card1 - 1;
+            r1 = card2 - 1;
+
+
+
 
             if (c1 >= column || r1 >= row)
             {
@@ -116,25 +133,30 @@ class Card
             else
             {
                 firstCard = cardShuffle[c1, r1];
-                playBoard[c1, r1] = cardShuffle[c1, r1];
+                playBoard[c1, r1] = $"[{cardShuffle[c1, r1]}]";
                 break;
             }
         }
 
-
-
         ShowBoard();
         ShowCount();
 
+        // 두 번째 카드 선택
         while (true)
         {
-            // 두 번째 카드 선택
             Console.Write("두 번째 카드를 선택하세요 (행 열): ");
-            string[] selectCard2 = new string[2];
+            string[] selectCard2 = new string[5];
             selectCard2 = Console.ReadLine().Split(" ");
 
-            c2 = int.Parse(selectCard2[0]) - 1;
-            r2 = int.Parse(selectCard2[1]) - 1;
+
+            if (selectCard2.Length < 2 || !int.TryParse(selectCard2[0], out int card1) || !int.TryParse(selectCard2[1], out int card2))
+            {
+                Console.WriteLine("잘못된 입력입니다. 숫자 두 개를 띄워쓰기로 구분해 입력해 주세요.");
+                continue;
+            }
+
+            c2 = card1 - 1;
+            r2 = card2 - 1;
 
 
             // 중복 선택 시 재선택 요청
@@ -149,7 +171,7 @@ class Card
             else
             {
                 secondCard = cardShuffle[c2, r2];
-                playBoard[c2, r2] = cardShuffle[c2, r2];
+                playBoard[c2, r2] = $"[{cardShuffle[c2, r2]}]";
                 tryCount++;
                 break;
             }
@@ -178,6 +200,35 @@ class Card
        
     }
 
+    // 카드 미리보여주기
+    public void Preview(string num, int time)
+    {
+        Console.Write("    ");
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        for (int i = 0; i < cardShuffle.GetLength(1); i++)
+        {
+            Console.Write($"{i + 1}열 ");
+        }
+        Console.ResetColor();
+        Console.WriteLine();
+
+        for (int i = 0; i < cardShuffle.GetLength(0); i++)
+        {
+            Console.Write($"{i + 1}행 ");
+            for (int j = 0; j < cardShuffle.GetLength(1); j++)
+            {
+                Console.Write($"  {cardShuffle[i, j]} ");
+            }
+            Console.WriteLine();
+        }
+
+        Console.WriteLine();
+        Console.WriteLine($"잘 기억하세요! ({time}초 후 뒤집힙니다)");
+
+        Thread.Sleep(time * 1000);
+    }
+
+
 
     public void ShowBoard()
     {
@@ -196,7 +247,7 @@ class Card
             Console.Write($"{i + 1}행 ");
             for (int j = 0; j < playBoard.GetLength(1); j++)
             {
-                Console.Write($"{playBoard[i, j]}");
+                Console.Write($"{playBoard[i, j]} ");
             }
             Console.WriteLine();
         }
