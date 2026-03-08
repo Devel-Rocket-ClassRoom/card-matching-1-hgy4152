@@ -133,7 +133,6 @@ class Card : GameBase
 
     }
 
-
     public void getCard()
     {
         int c1 = 0;
