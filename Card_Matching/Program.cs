@@ -5,7 +5,7 @@ Console.WriteLine("=== 카드 짝 맞추기 게임 ===");
 Console.WriteLine();
 
 bool isEnd = false;
-Card card = new Card();
+CardGame card = new CardGame();
 
 while (!isEnd)
 {

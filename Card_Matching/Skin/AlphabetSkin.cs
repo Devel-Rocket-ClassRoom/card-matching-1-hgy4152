@@ -8,7 +8,7 @@ class AlphabetSkin : ICardSkin
 
     public ConsoleColor GetColor(string value)
     {
-
+        // 100개 넘으면 어쩌려고
         switch (value)
         {
             case "A":

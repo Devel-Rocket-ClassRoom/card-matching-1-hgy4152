@@ -9,12 +9,12 @@ using System.Timers;
 
 
 
-class Card
+class CardGame
 {
     // 난이도, 스킨, 모드 선택 필드
-    protected string level;
-    protected string skin;
-    protected string mod;
+    private string level;
+    private string skin;
+    private string mod;
 
 
     // 카드 덱 관련 필드
@@ -26,7 +26,7 @@ class Card
     // 게임 종료 조건 필드
     public int tryCount { get; private set; } // 시도횟수
     public int correct { get; private set; } // 맞춘 쌍
-    public int cardCount { get; private set; } // 전체 쌍
+    public int cardPairCount { get; private set; } // 전체 쌍
     public int limitCount { get; private set; } // 최대 시도횟수
     public int previewCount { get; private set; } // 미리 보여주기 시간
 
@@ -208,7 +208,7 @@ class Card
     public void SetGame(int limit, int cardCount, int previewTime)
     {
         limitCount = limit;
-        this.cardCount = cardCount;
+        this.cardPairCount = cardCount;
         previewCount = previewTime;
     }
 

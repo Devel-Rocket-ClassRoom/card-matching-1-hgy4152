@@ -4,5 +4,5 @@ using System.Text;
 
 interface IGameLevel
 {
-    public string[,] CardDeck(Card card);
+    public string[,] CardDeck(CardGame card);
 }

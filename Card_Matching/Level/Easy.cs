@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Text;
-class Easy : Card, IGameLevel
+class Easy : IGameLevel
 {
-    public string[,] CardDeck(Card card)
+    public string[,] CardDeck(CardGame card)
     {
         Console.WriteLine("카드를 섞는 중. . .\n");
         // j는 고정 2번

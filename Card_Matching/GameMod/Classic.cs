@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Text;
 
-class Classic : Card, IGameMod
+class Classic : IGameMod
 {
-    public void GameOver(Card card)
+    public void GameOver(CardGame card)
     {
         if (card.limitCount == card.tryCount)
         {
             Console.WriteLine("=== 게임 오버! ===");
             Console.WriteLine($"시도 횟수를 모두 사용 했습니다.");
-            Console.WriteLine($"찾은 쌍: {card.correct}/{card.cardCount}\n");
+            Console.WriteLine($"찾은 쌍: {card.correct}/{card.cardPairCount}\n");
         }
         else
         {
@@ -19,13 +19,13 @@ class Classic : Card, IGameMod
         }
     }
 
-    public bool GameJudge(Card card)
+    public bool GameJudge(CardGame card)
     {
-        return card.tryCount >= card.limitCount || card.cardCount == card.correct;
+        return card.tryCount >= card.limitCount || card.cardPairCount == card.correct;
     }
 
-    public void GameRule(Card card)
+    public void GameRule(CardGame card)
     {
-        Console.WriteLine($"시도 횟수: {card.tryCount} | 찾은 쌍: {card.correct}/{card.cardCount}");
+        Console.WriteLine($"시도 횟수: {card.tryCount} | 찾은 쌍: {card.correct}/{card.cardPairCount}");
     }
 }

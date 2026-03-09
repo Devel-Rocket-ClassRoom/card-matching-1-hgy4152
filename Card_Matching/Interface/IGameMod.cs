@@ -4,7 +4,7 @@ using System.Text;
 
 interface IGameMod
 {
-    public void GameOver(Card card);
-    public void GameRule(Card card);
-    public bool GameJudge(Card card);
+    public void GameOver(CardGame card);
+    public void GameRule(CardGame card);
+    public bool GameJudge(CardGame card);
 }
